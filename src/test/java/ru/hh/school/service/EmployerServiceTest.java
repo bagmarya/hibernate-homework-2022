@@ -64,15 +64,6 @@ public class EmployerServiceTest extends BaseTest {
 
     Employer savedEmployer = employerService.getByIdPrefetched(employer.getId());
     assertEquals(2, savedEmployer.getVacancies().size());
-//    doInTransaction(() -> genericDao.save(vacancy1));
-//    doInTransaction(() -> genericDao.save(vacancy2));
-
-//    System.out.println("!!!!!!!!" + employer.getVacancies().size());
-//    Employer savedEmployer = employerService.getById(employer.getId());
-//    System.out.println("!!!!!!!!" + employerService.getByIdPrefetched(employer.getId()).getCompanyName());
-//    System.out.println("!!!!!!!!" + employerService.getByIdPrefetched(employer.getId()).getVacancies().size());
-//    System.out.println("!!!!!!!!" + employerService.getVac().size());
-
   }
 
   @Test
@@ -125,12 +116,8 @@ public class EmployerServiceTest extends BaseTest {
     employerService.blockIfEmployerUseBadWords(employer.getId());
 
     final Employer blockedEmployer = employerService.getByIdPrefetched(employer.getId());
-//    System.out.println(blockedEmployer.getBlockTime());
     assertNotNull(blockedEmployer.getBlockTime());
-//    System.out.println(blockedEmployer.getVacancies().stream().map(v -> v.getArchivingTime()).collect(Collectors.toList()));
-//    System.out.println(blockedEmployer.getVacancies().stream().noneMatch(v -> v.getArchivingTime() == null));
     assertTrue(blockedEmployer.getVacancies().stream().noneMatch(v -> v.getArchivingTime() == null));
-//    System.out.println(getSelectCount());
     assertEquals(2, getSelectCount());
   }
 
