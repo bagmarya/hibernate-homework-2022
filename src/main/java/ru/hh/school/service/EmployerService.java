@@ -36,9 +36,6 @@ public class EmployerService {
   public Employer getByIdPrefetched(int employerId) {
     return transactionHelper.inTransaction(() -> employerDao.getEager(employerId));
   }
-  public List<Vacancy> getVac() {
-      return transactionHelper.inTransaction(() -> employerDao.getV());
-    }
 
   public void block(int employerId) {
     transactionHelper.inTransaction(() -> {

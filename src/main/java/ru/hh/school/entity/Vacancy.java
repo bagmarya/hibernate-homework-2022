@@ -55,7 +55,6 @@ public class Vacancy {
 
   public Vacancy(Employer employer) {
     this.employer = employer;
-//    employer.addVacancy(this);
   }
 
   public void setArea(Area area) {

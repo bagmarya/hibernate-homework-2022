@@ -31,11 +31,7 @@ public class EmployerDao extends GenericDao {
         .setParameter("Id", employerId)
         .getSingleResult();
   }
-public List<Vacancy> getV() {
-    return getSession()
-        .createQuery("select v from Vacancy v", Vacancy.class)
-            .getResultList();
-  }
+
 public Employer find(Integer id) {
   return getSession().find(Employer.class, id);
 }
