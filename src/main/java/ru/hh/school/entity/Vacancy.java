@@ -13,33 +13,49 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 //TODO: оформите entity
+@Entity
+@Table(name = "vacancy")
 public class Vacancy {
 
+  @Id
+  @Column(name = "vacancy_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "employer_id")
   private Employer employer;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "area_id")
   private Area area;
 
+  @JoinColumn(name = "title")
   private String title;
 
+  @JoinColumn(name = "description")
   private String description;
 
+  @Column(name = "compensation_from")
   private Integer compensationFrom;
 
+  @Column(name = "compensation_to")
   private Integer  compensationTo;
 
+  @Column(name = "compensation_gross")
   private Boolean compensationGross;
 
+  @Column(name = "creation_time")
   private LocalDateTime creationTime;
 
+  @Column(name = "archiving_time")
   private LocalDateTime archivingTime;
 
-  public Vacancy() {
-  }
+  public Vacancy() {}
 
   public Vacancy(Employer employer) {
     this.employer = employer;
+//    employer.addVacancy(this);
   }
 
   public void setArea(Area area) {

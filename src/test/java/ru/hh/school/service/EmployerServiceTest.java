@@ -11,6 +11,8 @@ import ru.hh.school.entity.Employer;
 import ru.hh.school.entity.Vacancy;
 import ru.hh.school.util.TransactionHelper;
 
+import java.util.stream.Collectors;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -59,8 +61,18 @@ public class EmployerServiceTest extends BaseTest {
     employer.getVacancies().add(vacancy2);
     doInTransaction(() -> genericDao.save(employer));
 
+
     Employer savedEmployer = employerService.getByIdPrefetched(employer.getId());
     assertEquals(2, savedEmployer.getVacancies().size());
+//    doInTransaction(() -> genericDao.save(vacancy1));
+//    doInTransaction(() -> genericDao.save(vacancy2));
+
+//    System.out.println("!!!!!!!!" + employer.getVacancies().size());
+//    Employer savedEmployer = employerService.getById(employer.getId());
+//    System.out.println("!!!!!!!!" + employerService.getByIdPrefetched(employer.getId()).getCompanyName());
+//    System.out.println("!!!!!!!!" + employerService.getByIdPrefetched(employer.getId()).getVacancies().size());
+//    System.out.println("!!!!!!!!" + employerService.getVac().size());
+
   }
 
   @Test
@@ -113,9 +125,12 @@ public class EmployerServiceTest extends BaseTest {
     employerService.blockIfEmployerUseBadWords(employer.getId());
 
     final Employer blockedEmployer = employerService.getByIdPrefetched(employer.getId());
+//    System.out.println(blockedEmployer.getBlockTime());
     assertNotNull(blockedEmployer.getBlockTime());
+//    System.out.println(blockedEmployer.getVacancies().stream().map(v -> v.getArchivingTime()).collect(Collectors.toList()));
+//    System.out.println(blockedEmployer.getVacancies().stream().noneMatch(v -> v.getArchivingTime() == null));
     assertTrue(blockedEmployer.getVacancies().stream().noneMatch(v -> v.getArchivingTime() == null));
-
+//    System.out.println(getSelectCount());
     assertEquals(2, getSelectCount());
   }
 
