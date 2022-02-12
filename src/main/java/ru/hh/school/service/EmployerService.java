@@ -1,11 +1,13 @@
 package ru.hh.school.service;
 
+import ru.hh.school.entity.Vacancy;
 import ru.hh.school.util.TransactionHelper;
 import ru.hh.school.dao.EmployerDao;
 import ru.hh.school.dao.GenericDao;
 import ru.hh.school.entity.Employer;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -67,8 +69,11 @@ public class EmployerService {
     // про возврат в managed состояние: https://vladmihalcea.com/jpa-persist-and-merge
 
     transactionHelper.inTransaction(() -> {
+//      employerDao.find(employerId).setBlockTime(LocalDateTime.now());
+//      employerDao.find(employerId).getVacancies().forEach(v -> v.setArchivingTime(LocalDateTime.now()));
       employer.setBlockTime(LocalDateTime.now());
       employer.getVacancies().forEach(v -> v.setArchivingTime(LocalDateTime.now()));
+      genericDao.update(employer);
     });
   }
 
